@@ -1,0 +1,132 @@
+-- ****************** SqlDBM: Microsoft SQL Server ******************
+-- ******************************************************************
+
+DROP TABLE [dbo].[Counselor];
+GO
+
+
+DROP TABLE [dbo].[CounselorStatus];
+GO
+
+
+DROP TABLE [dbo].[Group];
+GO
+
+
+DROP TABLE [dbo].[CounselorType];
+GO
+
+
+
+DROP SCHEMA [dbo];
+GO
+
+
+CREATE SCHEMA [dbo];
+GO
+
+--************************************** [dbo].[CounselorStatus]
+
+CREATE TABLE [dbo].[CounselorStatus]
+(
+ [CounselorStatusCode] VARCHAR(10) NOT NULL ,
+
+ CONSTRAINT [PK_CounselorStatus] PRIMARY KEY CLUSTERED ([CounselorStatusCode] ASC)
+);
+GO
+
+
+
+--************************************** [dbo].[Group]
+
+CREATE TABLE [dbo].[Group]
+(
+ [GroupId] INT NOT NULL ,
+
+ CONSTRAINT [PK_Group] PRIMARY KEY CLUSTERED ([GroupId] ASC)
+);
+GO
+
+
+
+--************************************** [dbo].[CounselorType]
+
+CREATE TABLE [dbo].[CounselorType]
+(
+ [CounselorTypeCode]        VARCHAR(10) NOT NULL ,
+ [CounselorTypeDescription] VARCHAR(50) NOT NULL ,
+
+ CONSTRAINT [PK_CounselorType] PRIMARY KEY CLUSTERED ([CounselorTypeCode] ASC)
+);
+GO
+
+
+
+--************************************** [dbo].[Counselor]
+
+CREATE TABLE [dbo].[Counselor]
+(
+ [CounselorId]            INT NOT NULL ,
+ [CounselorTypeCode]      VARCHAR(10) NOT NULL ,
+ [FirstName]              NVARCHAR(50) NULL ,
+ [Last Name]              NVARCHAR(50) NULL ,
+ [Sex]                    VARCHAR(1) NULL ,
+ [HomePhone]              NVARCHAR(50) NULL ,
+ [CellPhone]              NVARCHAR(50) NULL ,
+ [Address]                NVARCHAR(50) NULL ,
+ [City]                   NVARCHAR(50) NULL ,
+ [PostalCode]             VARCHAR(7) NULL ,
+ [Email]                  NVARCHAR(200) NULL ,
+ [EmergencyContactName]   NVARCHAR(50) NULL ,
+ [EmergencyContactPhone]  NVARCHAR(50) NULL ,
+ [ArrivalTime]            DATETIME NULL ,
+ [OtherSkills]            NVARCHAR(2000) NULL ,
+ [BirthDate]              DATE NULL ,
+ [Smoke]                  BIT NULL ,
+ [RequestedGroup]         INT NULL ,
+ [AssignedToChildren]     BIT NULL ,
+ [PersonalCare]           VARCHAR(2) NULL ,
+ [Behaviour]              VARCHAR(2) NULL ,
+ [Sign]                   VARCHAR(2) NULL ,
+ [Symbol]                 VARCHAR(2) NULL ,
+ [CriminalCheckYear]      VARCHAR(4) NULL ,
+ [ParentSigned]           BIT NULL ,
+ [CounselorSigned]        BIT NULL ,
+ [FormReceived]           DATE NULL ,
+ [Oriented]               BIT NULL ,
+ [AssignedSex]            VARCHAR(1) NULL ,
+ [FormerCounselorType]    VARCHAR(10) NULL ,
+ [Comments]               NVARCHAR(2000) NULL ,
+ [Status]                 VARCHAR(10) NULL ,
+ [JuniorConfirmed]        BIT NOT NULL ,
+ [JuniorRequested]        BIT NOT NULL ,
+ [Junior]                  NOT NULL ,
+ [WorkWithMale]           BIT NOT NULL ,
+ [TeacherReference]       BIT NOT NULL ,
+ [AllergyGluten]          BIT NOT NULL ,
+ [Vegetarian]             BIT NOT NULL ,
+ [DairyAllergy]           BIT NOT NULL ,
+ [UnspecifiedFoodAllergy] BIT NOT NULL ,
+
+ CONSTRAINT [PK_Counselor] PRIMARY KEY CLUSTERED ([CounselorId] ASC),
+ CONSTRAINT [FK_132] FOREIGN KEY ([CounselorTypeCode])
+  REFERENCES [dbo].[CounselorType]([CounselorTypeCode]),
+ CONSTRAINT [FK_143] FOREIGN KEY ([RequestedGroup])
+  REFERENCES [dbo].[Group]([GroupId]),
+ CONSTRAINT [FK_162] FOREIGN KEY ([FormerCounselorType])
+  REFERENCES [dbo].[CounselorType]([CounselorTypeCode]),
+ CONSTRAINT [FK_171] FOREIGN KEY ([Status])
+  REFERENCES [dbo].[CounselorStatus]([CounselorStatusCode])
+);
+GO
+
+
+--SKIP Index: [fkIdx_132]
+
+--SKIP Index: [fkIdx_143]
+
+--SKIP Index: [fkIdx_162]
+
+--SKIP Index: [fkIdx_171]
+
+
